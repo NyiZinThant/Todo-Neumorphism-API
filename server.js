@@ -1,6 +1,7 @@
 import express from 'express';
 import errorHandler from './middlewares/errorHandler.js';
 import todoRouter from './routes/todo.js';
+import cors from 'cors';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -8,6 +9,9 @@ const port = process.env.PORT || 3000;
 // body-parser middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// enable cors
+app.use(cors());
 
 // routes
 app.use('/api/v1/todos', todoRouter);

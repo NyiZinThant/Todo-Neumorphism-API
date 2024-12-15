@@ -74,7 +74,7 @@ const updateTodoCompleted = [
       }
       let { id, completed } = req.body;
       // map form data
-      completed = completed === 'true' ? 1 : 0;
+      completed = completed ? 1 : 0;
       await todoModel.updateTodoCompleted(id, completed);
       res.sendStatus(201);
     } catch (error) {
