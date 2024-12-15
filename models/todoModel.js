@@ -4,9 +4,11 @@ import { v4 as uuidv4 } from 'uuid';
 const getAllTodo = async () => {
   try {
     const [rows] = await db.query(
-      'SELECT *, IF(completed, "true", "false") completed FROM todo'
+      'SELECT * FROM todo ORDER BY created_at DESC'
     );
-    return rows;
+    return rows.map((todo) => {
+      return { ...todo, completed: !!todo.completed };
+    });
   } catch (error) {
     throw error;
   }
@@ -28,7 +30,7 @@ const getTodoById = async (id) => {
     const [result] = await db.query('SELECT * FROM todo WHERE id=?', [id]);
     if (result.length < 1)
       throw new Error('Todo with the specified ID does not exist.');
-    return id[0];
+    return { ...id[0], completed: !!id[0].completed };
   } catch (error) {
     throw error;
   }
