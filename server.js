@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
-app.use('/api/v1/todo', todoRouter);
+app.use('/api/v1/todos', todoRouter);
 // error handler
 app.use(errorHandler);
 
