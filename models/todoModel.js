@@ -1,4 +1,5 @@
 import db from '../config/database.js';
+import { v4 as uuidv4 } from 'uuid';
 // fetch all todos
 const getAllTodo = async () => {
   try {
@@ -32,5 +33,13 @@ const getTodoById = async (id) => {
     throw error;
   }
 };
-
-export default { getAllTodo, updateTodoCompleted, getTodoById };
+// add new todo
+const addTodo = async (label) => {
+  try {
+    const id = uuidv4();
+    await db.query('INSERT INTO todo(id, label) VALUES(?, ?)', [id, label]);
+  } catch (error) {
+    throw error;
+  }
+};
+export default { getAllTodo, updateTodoCompleted, getTodoById, addTodo };

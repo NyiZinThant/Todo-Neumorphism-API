@@ -13,7 +13,41 @@ const getAllTodo = async (req, res, next) => {
   }
 };
 
-const validateTodo = [
+const validateTodoLabel = [
+  body('label')
+    .trim()
+    .exists()
+    .withMessage('Label is required')
+    .isLength({ min: 1, max: 100 })
+    .withMessage('Label must be between 1 andd 100 characters'),
+];
+// @desc Add new todo
+// @route POST /api/v1/todos/
+const addTodo = [
+  validateTodoLabel,
+  async (req, res, next) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        const error = new Error(
+          errors
+            .array()
+            .map((err) => err.msg)
+            .join(', ')
+        );
+        throw error;
+      }
+      const { label } = req.body;
+      await todoModel.addTodo(label);
+      res.sendStatus(201);
+    } catch (error) {
+      error.status = 404;
+      next(error);
+    }
+  },
+];
+
+const validateUpdateTodo = [
   body('id').trim().exists().withMessage('Id is required'),
   body('completed')
     .exists()
@@ -25,7 +59,7 @@ const validateTodo = [
 // @desc Update todo completed
 // @route Patch /api/v1/todos/
 const updateTodoCompleted = [
-  validateTodo,
+  validateUpdateTodo,
   async (req, res, next) => {
     try {
       const errors = validationResult(req);
@@ -50,4 +84,4 @@ const updateTodoCompleted = [
   },
 ];
 
-export default { getAllTodo, updateTodoCompleted };
+export default { getAllTodo, updateTodoCompleted, addTodo };
