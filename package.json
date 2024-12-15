@@ -7,9 +7,13 @@
   "name": "todo-neumorphism-api",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "@faker-js/faker": "^9.3.0"
+  },
   "type": "module",
   "scripts": {
+    "cleanup": "node --env-file=.env scripts/cleanup.js",
+    "seed": "node --env-file=.env scripts/seeder.js",
     "dev": "node --watch --env-file=.env server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
