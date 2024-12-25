@@ -5,3 +5,11 @@ export default class ExpressError extends Error {
     this.status = statusCode || 500;
   }
 }
+
+export class ExpressMultiError extends ExpressError {
+  errors: string[];
+  constructor(message: string, statusCode: number, errors: string[]) {
+    super(message, statusCode);
+    this.errors = errors;
+  }
+}

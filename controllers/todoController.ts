@@ -46,16 +46,6 @@ const updateTodoCompleted = async (
   next: NextFunction
 ) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      const error = new Error(
-        errors
-          .array()
-          .map((err) => err.msg)
-          .join(', ')
-      );
-      throw error;
-    }
     let { id, completed } = req.body;
     // map form data
     completed = completed ? 1 : 0;

@@ -4,6 +4,7 @@ import {
   addTodoValidationRules,
   updateTodoValidationRules,
 } from '../validators/todoValidators';
+import validator from '../middlewares/validator';
 // create router
 const router = express.Router();
 
@@ -12,7 +13,8 @@ router.get('/', todoController.getAllTodo);
 router.patch(
   '/',
   updateTodoValidationRules,
+  validator,
   todoController.updateTodoCompleted
 );
-router.post('/', addTodoValidationRules, todoController.addTodo);
+router.post('/', addTodoValidationRules, validator, todoController.addTodo);
 export default router;
