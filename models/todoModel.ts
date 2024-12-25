@@ -1,9 +1,17 @@
+import { RowDataPacket } from 'mysql2';
 import db from '../config/database.js';
 import { v4 as uuidv4 } from 'uuid';
+export interface Todo {
+  id: string;
+  label: string;
+  completed: 1 | 0;
+  created_at: string;
+}
+export interface TodoRow extends RowDataPacket, Todo {}
 // fetch all todos
 const getAllTodo = async () => {
   try {
-    const [rows] = await db.query(
+    const [rows] = await db.query<TodoRow[]>(
       'SELECT * FROM todo ORDER BY created_at DESC'
     );
     return rows.map((todo) => {
@@ -27,7 +35,10 @@ const updateTodoCompleted = async (id, completed) => {
 // get todo by id
 const getTodoById = async (id) => {
   try {
-    const [result] = await db.query('SELECT * FROM todo WHERE id=?', [id]);
+    const [result] = await db.query<TodoRow[]>(
+      'SELECT * FROM todo WHERE id=?',
+      [id]
+    );
     if (result.length < 1)
       throw new Error('Todo with the specified ID does not exist.');
     return { ...id[0], completed: !!id[0].completed };

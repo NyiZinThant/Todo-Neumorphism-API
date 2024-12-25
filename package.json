@@ -10,13 +10,17 @@
   "version": "1.0.0",
   "main": "index.js",
   "devDependencies": {
-    "@faker-js/faker": "^9.3.0"
+    "@faker-js/faker": "^9.3.0",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.2",
+    "nodemon": "^3.1.9",
+    "typescript": "^5.7.2"
   },
   "type": "module",
   "scripts": {
-    "cleanup": "node --env-file=.env scripts/cleanup.js",
-    "seed": "node --env-file=.env scripts/seeder.js",
-    "dev": "node --watch --env-file=.env server",
+    "cleanup": "nodemon --env-file=.env scripts/cleanup.js",
+    "seed": "nodemon --env-file=.env scripts/seeder.js",
+    "dev": "nodemon --env-file=.env server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
