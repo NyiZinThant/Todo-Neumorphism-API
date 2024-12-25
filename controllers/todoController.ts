@@ -19,16 +19,6 @@ const getAllTodo = async (req: Request, res: Response, next: NextFunction) => {
 // @route POST /api/v1/todos/
 const addTodo = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      const error = new Error(
-        errors
-          .array()
-          .map((err) => err.msg)
-          .join(', ')
-      );
-      throw error;
-    }
     const { label } = req.body;
     await todoModel.addTodo(label);
     res.sendStatus(201);
