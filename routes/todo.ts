@@ -1,9 +1,9 @@
 import express from 'express';
-import todoController from './../controllers/todoController.ts';
+import todoController from './../controllers/todoController';
 import {
   addTodoValidationRules,
   updateTodoValidationRules,
-} from '../validators/todoValidators.ts';
+} from '../validators/todoValidators';
 // create router
 const router = express.Router();
 

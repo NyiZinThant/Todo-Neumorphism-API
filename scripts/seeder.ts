@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import db from '../config/database.js';
+import db from '../config/database';
 
 const seedTodo = async () => {
   try {

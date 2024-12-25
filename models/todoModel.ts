@@ -23,7 +23,7 @@ const getAllTodo = async () => {
 };
 
 // update todo completed
-const updateTodoCompleted = async (id, completed) => {
+const updateTodoCompleted = async (id: string, completed: boolean) => {
   try {
     await getTodoById(id);
     await db.query('UPDATE todo SET completed=? WHERE id=?', [completed, id]);
@@ -33,7 +33,7 @@ const updateTodoCompleted = async (id, completed) => {
 };
 
 // get todo by id
-const getTodoById = async (id) => {
+const getTodoById = async (id: string) => {
   try {
     const [result] = await db.query<TodoRow[]>(
       'SELECT * FROM todo WHERE id=?',
@@ -41,13 +41,13 @@ const getTodoById = async (id) => {
     );
     if (result.length < 1)
       throw new Error('Todo with the specified ID does not exist.');
-    return { ...id[0], completed: !!id[0].completed };
+    return { ...result[0], completed: !!result[0].completed };
   } catch (error) {
     throw error;
   }
 };
 // add new todo
-const addTodo = async (label) => {
+const addTodo = async (label: string) => {
   try {
     const id = uuidv4();
     await db.query('INSERT INTO todo(id, label) VALUES(?, ?)', [id, label]);

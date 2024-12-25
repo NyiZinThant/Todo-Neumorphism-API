@@ -1,8 +1,9 @@
 import express from 'express';
-import errorHandler from './middlewares/errorHandler.js';
-import todoRouter from './routes/todo.js';
+import errorHandler from './middlewares/errorHandler';
+import todoRouter from './routes/todo';
 import cors from 'cors';
-
+// import dotenv from 'dotenv';
+// dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 

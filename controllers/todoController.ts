@@ -1,6 +1,7 @@
-import { body, validationResult } from 'express-validator';
-import todoModel from '../models/todoModel.ts';
+import { validationResult } from 'express-validator';
+import todoModel from '../models/todoModel';
 import { NextFunction, Request, Response } from 'express';
+import ExpressError from '../CustomError/ExpressError';
 
 // @desc Get all todo
 // @route GET /api/v1/todos/
@@ -9,7 +10,7 @@ const getAllTodo = async (req: Request, res: Response, next: NextFunction) => {
     const todos = await todoModel.getAllTodo();
     res.status(200).json(todos);
   } catch (error) {
-    error.status = 404;
+    if (error instanceof Error) error = new ExpressError(error.message, 404);
     next(error);
   }
 };
@@ -32,7 +33,7 @@ const addTodo = async (req: Request, res: Response, next: NextFunction) => {
     await todoModel.addTodo(label);
     res.sendStatus(201);
   } catch (error) {
-    error.status = 404;
+    if (error instanceof Error) error = new ExpressError(error.message, 404);
     next(error);
   }
 };
@@ -61,7 +62,7 @@ const updateTodoCompleted = async (
     await todoModel.updateTodoCompleted(id, completed);
     res.sendStatus(201);
   } catch (error) {
-    error.status = 404;
+    if (error instanceof Error) error = new ExpressError(error.message, 404);
     next(error);
   }
 };

@@ -1,4 +1,6 @@
 import mysql from 'mysql2/promise';
+// import dotenv from 'dotenv';
+// dotenv.config();
 const url = process.env.MYSQL_URL || '';
 // mysql database connection
 const connectToDatabase = async () => {
